@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Administrador</title>
+	<!---verifica mediante cookies que el usuario este looegado-->
+	<script>
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
+		if (getCookie('rol')!=1) {
+			window.location.replace("index.html");
+		}
+
+	</script>
+
+	<!---libreria bootstrap-->
+	<link rel="stylesheet" href="assets/css/index.css">
+	<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="http://localhost:81/bootstrap-4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://localhost:81/iconfont/css/all.css">-->
+
+<!--peticion de jquery--->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+	<!---------------------Cabeza de la pagina----------------------------------------------------------------->
+	<header>
+		<nav>
+			<div class="logos">
+				<p style="margin: 0; color:#F9F9F9;"><span style="font-family: 'Rajdhani', sans-serif; font-size: 1.5em;"> ESCOM</span>partiendo</p>
+			</div>
+			<ul>
+				<li><a href="index.html"><p><i class="fas fa-home" style="font-size: 30px; color: white"></i></p></a></li>
+				<li><a href="#"><p><i class="fas fa-comment" style="font-size: 30px; color: white"></i></p></a></li>
+				<li id="info_usuario">
+					<!--<a href="#" class="usuario_info">
+						<img src="images/user_1.jpg" alt="Imagen usuario" width="40">
+						<p id="nombre_usuario">Nombre Usuario</p>
+						<p><i class="fas fa-edit" style="font-size: 30px; color: white"></i></p>
+					</a>-->
+				</li>
+				<li>
+					<a id="cerrar_sesion"><p><i class="fas fa-sign-out-alt" style="font-size: 30px; color: white"></i></p></a>
+				</li>
+				
+			</ul>
+			
+		</nav>
+	</header>
+
+	<!----seccion contenedor de toda la pagina-->
+	<section class="contenedor">
+
+		<div class="container">
+			<!------>
+			<div class="inicio row justify-content-center" id="inicio">
+
+				<div class="titulo">
+
+					<h1 class="display-3"><!------>
+						<span style="color:#1169a3; font-family: 'Rajdhani', sans-serif; font-size: 1.5em;">Administrador</span>
+					</h1>
+					<br>
+					<br>
+				</div>
+
+				<br>
+				<br>
+						<!---botones--->
+				<div class="botones_inicio row justify-content-around">
+
+					<div class="col-sm-4 pt-2">
+						<a href="#solicitudes_usuarios" class="btn btn_red btn-lg">Solicitudes Nuevos Usuarios</a>
+					</div>
+
+					<div class="col-sm-4 pt-2">
+						<a href="#crear_ua" class="btn btn_red btn-lg">Crear unidad de aprendizaje</a>
+					</div>
+
+					<div class="col-sm-4 pt-2">
+						<a href="#asignar_ua" class="btn btn_red btn-lg">Asignar unidad de aprendizaje</a>
+					</div>
+					<div class="col-sm-4 pt-2">
+						<a href="subir.html" class="btn btn_red btn-lg" id="Subir">Subir archivo</a>
+					</div>
+
+					<div class="col-sm-4 pt-2">
+						<a href="archivos.html" class="btn btn_red btn-lg" id="Eliminar"> Ver archivos</a>												
+					</div>
+	
+				</div>
+				<!---btn para mover en la misma pagina--->
+				<div class="position-absolute" style="bottom: 20px;">
+					<div class="col-12 mt-5 ">
+						<a href="#solicitudes_usuarios" class="no_link" >Ir a solicitudes</a>
+					</div>
+					<div class="col-12">
+						<a href="#compartir" class="no_link"><i class="fas fa-chevron-down" style="color: red;"></i></a>
+					</div>
+				</div>
+				
+
+				
+			</div>
+			<!---solicitudes de usuarios nuevos--->
+			<div id="solicitudes_usuarios" class="solicitud mt-5">
+
+				<div class="jumbotron jumbotron-fluid w-100">
+
+					<div class="container justify-content-center">
+						<h2 class="display-4">Solicitudes usuarios nuevos</h2>
+					</div>
+					
+				  	<div class="container justify-content-center" id="solicitudes_body">	    		
+			    <!-- 
+
+			    	<div class="media border p-3">
+				    	<img class="align-self-center mr-3" src="images/user_1.jpg" alt="Generic placeholder image" width="64">
+					    <div class="media-body align-self-center mr-3">
+					    	<h5 class="mt-0">Ing. Juan Sanchez Hernandez</h5>
+					        <p class="lead mb-0">Alumno</p>
+					  	</div>
+					  	<form class="align-self-center mr-3">
+					  		<div style="display: none;">
+					  			<input type="text" value="" name="correo_solicitud">
+					  			<input type="text" value="aceptarUsuario" name="accion">
+					  		</div>
+					  		<button type="submit" class="align-self-center mr-3 btn btn-link"><i class="fas fa-plus-circle" style="font-size: 40px; color: black;"></i></button>					  		
+					  	</form>
+					   	
+					</div>
+
+			    	<div class="media border p-3">
+					    <div class="media-body">
+					        <p class="lead">Ing. Eduardo Alfaro Miranda</p>
+					  	</div>
+					   <a href=""><i class="fas fa-plus-circle" style="font-size: 40px; color: black;"></i></a>
+					</div>				
+			    --> 
+				    
+				    <div class="w-100 mt-2"></div>
+
+				    
+				    
+				  </div>
+				  <!---boton para subir al inicio--->
+				  <div class="col-sm-3">
+						<a href="#" class="btn btn_red btn-lg" id="Subir">Ir al inicio</a>
+					</div>
+				</div>
+				
+			</div>
+				<!--crear unidades de aprendizaje---->
+			<div id="crear_ua" class="solicitud mt-5">
+
+				<div class="jumbotron jumbotron-fluid w-100">
+					<div class="container justify-content-center">
+						<h2 class="display-4">Crear unidad de aprendizaje</h2>
+					</div>
+					
+					<div class="container">
+
+						<div class="row justify-content-center">
+
+							<div class="col-8">
+								<!----datos para u.aprendizaje-->
+								<form class="form-row justify-content-end" method="POST" >
+									
+									<div class="form-group col-12">
+										<label for="">Nombre:</label>
+										<input type="text" class="form-control" name="nombre_ua" placeholder="Tecnologías para la Web" required>
+									</div>
+									<div class="form-group col-12">
+										<label for="">Desccripción:</label>
+										<textarea name="descripcion_ua" class="form-control" id="" placeholder="Escribe una descripción" required></textarea>
+									</div>
+									<div class="form-group col-12">
+										<label for="">Nivel:</label>
+										<select name="nivel_ua" id="" class="form-control">
+											<option value="1">Primer nivel</option>
+											<option value="2">Segundo nivel</option>
+											<option value="3">Tercer nivel</option>
+											<option value="4">Cuarto nivel</option>
+										</select>
+									</div>
+
+									<input type="text" name="accion" value="crearUA" hidden>
+									
+									<div class="form-group">
+										<input type="submit" value="Agregar unidad de aprendizaje" class="btn btn_red" name="agregar_ua">
+									</div>
+
+								</form>
+								
+							</div>			  	
+					  		
+						  	
+						 </div>
+
+						
+					</div>
+					<!----boton para ir al inicio-->
+					<div class="col-sm-3">
+						<a href="#" class="btn btn_red btn-lg" id="Subir">Ir al inicio</a>
+					</div>
+				  	
+				    
+				  </div>
+				
+			</div>
+			<!----asignar unidad de aprendizaje-->
+			<div id="asignar_ua" class="solicitud mt-5">
+
+				<div class="jumbotron jumbotron-fluid w-100">
+					<div class="container justify-content-center">
+						<h2 class="display-4">Asignar unidad de aprendizaje</h2>
+					</div>
+					
+					<div class="container">
+
+						<div class="row justify-content-center">
+
+							<div class="col-8">
+								<!---datos para seleccionar una unidad de aprendizaje--->
+								<form class="form-row justify-content-end" method="POST" >
+
+									<div class="form-group col-12">
+										<label for="">Profesor:</label>
+										<select name="profesor_prof_ua" id="profesor_prof_ua" required class="form-control">
+											<option value="">Seleciona un profesor</option>
+										</select>
+									</div>
+
+									<div class="form-group col-12">
+										<label for="">Unidad de aprendizaje:</label>
+										<select name="ua_prof_ua" id="ua_prof_ua" required class="form-control">
+											<option value="">Selecciona una UA</option>								
+										</select>
+									</div>
+
+									<input type="text" name="accion" value="asignarUA" hidden>
+
+									<div class="form-group">
+										<input type="submit" value="Asignar unidad de aprendizaje a profesor" class="btn btn_red" name="agregar_ua_profesor">
+									</div>
+
+								</form>
+								
+							</div>			  	
+					  		
+						  	
+						 </div>
+
+						
+					</div>
+					<!---boton para sabir al inicio--->
+					<div class="col-sm-3">
+						<a href="#" class="btn btn_red btn-lg" id="Subir">Ir al inicio</a>
+					</div>
+				  	
+				    
+				  </div>
+				
+			</div>
+
+			<!---muestra usuarios activos--->
+			<div id="usuarios_activos" class="solicitud mt-5">
+
+				<div class="jumbotron jumbotron-fluid w-100">
+
+					<div class="container justify-content-center">
+						<h2 class="display-4">Usuarios Activos</h2>
+					</div>
+					
+				  	<div class="container justify-content-center" id="usuarios_body" style="overflow-y: auto; overflow-x: hidden;">	    		
+			    <!-- 
+
+			    	<div class="media border p-3">
+				    	<img class="align-self-center mr-3" src="images/user_1.jpg" alt="Generic placeholder image" width="64">
+					    <div class="media-body align-self-center mr-3">
+					    	<h5 class="mt-0">Ing. Juan Sanchez Hernandez</h5>
+					        <p class="lead mb-0">Alumno</p>
+					  	</div>
+					  	<form class="align-self-center mr-3">
+					  		<div style="display: none;">
+					  			<input type="text" value="" name="correo_solicitud">
+					  			<input type="text" value="aceptarUsuario" name="accion">
+					  		</div>
+					  		<button type="submit" class="align-self-center mr-3 btn btn-link"><i class="fas fa-plus-circle" style="font-size: 40px; color: black;"></i></button>					  		
+					  	</form>
+					   	
+					</div>			
+			    --> 
+				    
+				    <div class="w-100 mt-2"></div>
+
+				    
+				    
+				  </div>
+				  <!--boton para subir al inicio---->
+				  <div class="col-sm-3">
+						<a href="#" class="btn btn_red btn-lg" id="Subir">Ir al inicio</a>
+					</div>
+				</div>
+				
+			</div>
+		
+	</section>
+
+	<!----pie de pagina-->
+	<section class="pie">
+		<footer>
+			<div>
+				<p>
+				<a href="https://twitter.com/escomunidad?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3Aescomunidad&ref_url=http%3A%2F%2Fwww.isc.escom.ipn.mx%2F"><i class="fab fa-twitter-square" style="color: white; font-size: 40px; padding: 5px;"></i></a>	
+				<a href="https://www.facebook.com/escomipnmx/"><i class="fab fa-facebook-square" style="color: white; font-size: 40px; padding: 5px;"></i></a>
+				
+				
+				ESCOMpartir ©2018 |</p>	
+			</div>					
+		</footer>			
+	</section>		
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  	<div class="modal-dialog modal-dialog-centered" role="document">
+	    	<div class="modal-content">
+	     		<div class="modal-header">
+	        		<h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          			<span aria-hidden="true">&times;</span>
+	        		</button>
+	      		</div>
+		      	<div class="modal-body" id="mensaje-resp-ajax">
+		      	</div>
+	      		<div class="modal-footer">
+      			</div>
+	    	</div>
+	  	</div>
+	</div>
+		
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<!--<script src="http://localhost:81/bootstrap-4.1.1/js/bootstrap.min.js"></script>-->
+	<script src="assets/js/administrador.js"></script>
+
+</body>
+</html>

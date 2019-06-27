@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Subir archivos</title>
+	<!---verifica mediante cookies que el usuario este looegado-->
+	<script>
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
+		if ( getCookie('rol')!=2 && getCookie('rol')!=1 ) {
+			window.location.replace("index.html");
+		}
+	</script>
+	<link rel="stylesheet" href="assets/css/index.css">
+	<!---libreria bootstrap-->
+	<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="http://localhost:81/bootstrap-4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://localhost:81/iconfont/css/all.css">-->
+	<!---peticion iquery---->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<!---header/logos---->
+	<header>
+		<nav>
+			<div class="logos">
+				<p style="margin: 0; color:#F9F9F9;"><span style="font-family: 'Rajdhani', sans-serif; font-size: 1.5em;"> ESCOM</span>partiendo</p>
+			</div>
+			<ul>
+				<li>
+					<a href="index.html"><p><i class="fas fa-home" style="font-size: 30px; color: white"></i></p></a>
+				</li>
+				<li><a href="#"><p><i class="fas fa-comment" style="font-size: 30px; color: white"></i></p></a></li>
+				<li id="info_usuario">
+					<!--<a href="#" class="usuario_info">
+						<img src="images/user_1.jpg" alt="Imagen usuario" width="40">
+						<p id="nombre_usuario">Nombre Usuario</p>
+						<p><i class="fas fa-edit" style="font-size: 30px; color: white"></i></p>
+					</a>-->
+				</li>
+				<li>
+					<a id="cerrar_sesion"><p><i class="fas fa-sign-out-alt" style="font-size: 30px; color: white"></i></p></a>
+				</li>
+				
+			</ul>
+			
+		</nav>
+	</header>
+	<!-----contenedor de la pagina-->
+	<section class="contenedor">
+		<div class="container">
+
+			<div id="ua_profesor" class="solicitud mt-5">
+
+				<div class="">
+					
+					<div class="container">
+						<div class="titulo">
+							<h1 class="display-3">
+								<span style="color:#1169a3; padding: 2rem; font-family: 'Rajdhani', sans-serif; font-size: 1.5em;">Subir archivo</span>
+							</h1>
+							<br>
+							<br>
+						</div>
+					</div>
+					<!----formulario para subir archivo--->
+					<div class="container">
+
+						<div class="row justify-content-center">
+
+							<div class="col-8">
+									<!----datos del formulario para subir un archivo--->
+								<form class="form-row justify-content-end" method="POST" >
+
+									<div class="form-group col-12">
+										<label for="">Nombre del archivo:</label>
+										<input type="text" required name="nombre_archivo" class="form-control" placeholder="Nombre del nuevo archivo">
+									</div>
+
+									<div class="form-group col-12">
+										<label for="">Descripción del archivo:</label>
+										<textarea name="descripcion_archivo" required class="form-control" placeholder="Descripción del archivo"></textarea>
+									</div>
+
+									<div class="form-group col-12">
+										<label for="">Unidad de aprendizaje:</label>
+										<select name="ua_archivo" id="ua_archivo" required class="form-control">
+											<option value="">Selecciona una UA</option>								
+										</select>
+									</div>
+
+									<div class="form-group col-12">
+										<label for="">Elige el nivel que tiene el archivo:</label>
+										<select name="nivel_archivo" id="nivel_archivo" required class="form-control">
+											<option value="">Selecciona un nivel</option>
+											<option value="1">Básico</option>
+											<option value="2">Medio</option>
+											<option value="3">Avanzado</option>								
+										</select>
+									</div>
+
+									<div class="form-group col-12">
+										<label for="">Archivo:</label>
+										<input type="file" required name="archivo" class="form-control">
+									</div>
+
+									<div class="form-group col-6">
+										<a href="profesor.html" class="btn btn_red">Regresar</a>
+									</div>
+
+									<div class="form-group col-6">
+										<input type="submit" value="Agregar archivo" class="btn btn_red btn-lg" name="agregar_ua_profesor">
+									</div>
+
+									
+
+									<input type="text" name="accion" value="nuevo_archivo" hidden>
+
+								</form>
+								
+							</div>			  	
+					  		
+						  	
+						 </div>
+
+						
+					</div>
+				  	
+				    
+				  </div>
+				
+			</div>
+		</div>
+		
+	</section>
+
+
+<!----pie de pagina--->
+	<section class="pie">
+		<footer>
+			<div>
+				<p>
+				<a href="https://twitter.com/escomunidad?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3Aescomunidad&ref_url=http%3A%2F%2Fwww.isc.escom.ipn.mx%2F"><i class="fab fa-twitter-square" style="color: white; font-size: 40px; padding: 5px;"></i></a>	
+				<a href="https://www.facebook.com/escomipnmx/"><i class="fab fa-facebook-square" style="color: white; font-size: 40px; padding: 5px;"></i></a>
+				
+				
+				ESCOMpartir ©2018 |</p>	
+			</div>					
+		</footer>			
+	</section>	
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  	<div class="modal-dialog modal-dialog-centered" role="document">
+	    	<div class="modal-content">
+	     		<div class="modal-header">
+	        		<h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          			<span aria-hidden="true">&times;</span>
+	        		</button>
+	      		</div>
+		      	<div class="modal-body" id="mensaje-resp-ajax">
+		      	</div>
+	      		<div class="modal-footer">
+      			</div>
+	    	</div>
+	  	</div>
+	</div>
+		<!--libreria javascrip----->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<!--<script src="http://localhost:81/bootstrap-4.1.1/js/bootstrap.min.js"></script>-->
+
+	<!----conexion mediante cookies--->
+	<script>	
+			if (getCookie('rol')==1) {
+				$("body").append(`<script src="assets/js/administrador.js"><\/script>`);
+				$("#link_regresar").attr('href', 'administrador.html');
+			}else{
+				$("body").append(`<script src="assets/js/profesor.js"><\/script>`);
+				$("#link_regresar").attr('href', 'profesor.html');
+			}
+	</script>
+</body>
+</html>

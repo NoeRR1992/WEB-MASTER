@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>Profesor</title>
+	<!---verifica mediante cookies que el usuario este looegado-->
+	<script>
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for(var i = 0; i <ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
+		if (getCookie('rol')!=2) {
+			window.location.replace("index.html");
+		}
+
+	</script>
+	<link rel="stylesheet" href="assets/css/index.css">
+	<!---libreria bootstrap--->
+	<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="http://localhost:81/bootstrap-4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://localhost:81/iconfont/css/all.css">-->
+
+<!--peticion de jquery--->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<!---header---->
+	<header>
+		<nav>
+			<div class="logos">
+				<p style="margin: 0; color:#F9F9F9;"><span style="font-family: 'Rajdhani', sans-serif; font-size: 1.5em;"> ESCOM</span>partiendo</p>
+			</div>
+			<ul>
+				<li><a href="index.html"><p><i class="fas fa-home" style="font-size: 30px; color: white"></i></p></a></li>
+				<li><a href="#"><p><i class="fas fa-comment" style="font-size: 30px; color: white"></i></p></a></li>
+				<li id="info_usuario">
+					<!--<a href="#" class="usuario_info">
+						<img src="images/user_1.jpg" alt="Imagen usuario" width="40">
+						<p id="nombre_usuario">Nombre Usuario</p>
+						<p><i class="fas fa-edit" style="font-size: 30px; color: white"></i></p>
+					</a>-->
+				</li>
+				<li>
+					<a id="cerrar_sesion"><p><i class="fas fa-sign-out-alt" style="font-size: 30px; color: white"></i></p></a>
+				</li>
+				
+			</ul>
+			
+		</nav>
+	</header>
+
+<!----contenedor de pagina--->
+	<section class="contenedor">
+
+		<div class="container">
+			
+			<div class="inicio row justify-content-center" id="inicio">
+				<!-----titutlo de profesor-->
+				<div class="titulo">
+					<h1 class="display-3">
+						<span style="color:#1169a3; font-family: 'Rajdhani', sans-serif; font-size: 1.5em;">Profesor</span>
+					</h1>
+					<br>
+					<br>
+				</div>
+
+				
+				<!-----botones-->
+				<div class="botones_inicio row justify-content-around">
+					<div class="col-sm-3">
+						<!--modal crear grupo-->
+						<a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn_red btn-lg" id="Crear"> Crear grupo</a>
+						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  						<div class="modal-dialog" role="document">
+	    						<div class="modal-content">
+		      						<div class="modal-header">
+		        						<h5 class="modal-title" id="exampleModalLabel"> Crear grupo</h5>
+		        						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          						<span aria-hidden="true">&times;</span>
+		        						</button>
+		      						</div>
+
+		      						<div class="modal-body">
+										<!---datos de modal para crar grupo---->
+		        						<form>
+					  						<div class="form-group">
+					  							<label for="exampleModalLabel">Unidad de aprendizaje</label>
+					  							<select name="ua_nuevo_grupo" class="form-control" id="uas_nuevo_grupo" required>
+					  								<option value="">Selecciona una unidad de aprendizaje</option>
+					  							</select>			    						
+					  						</div>
+					  						<div class="form-group">
+					    						<label for="">Nombre del grupo:</label>
+					    						<input type="text" name="nombre_nuevo_grupo" class="form-control" placeholder="Nombre del nuevo grupo" required>			
+					  						</div>
+					  						<input type="text" name="accion" value="crearGrupo" hidden>
+					  						<button type="submit" class="btn btn-primary">Crear grupo</button>
+										</form>
+
+		     						</div>
+		      						<div class="modal-footer">
+		        						<span>Me equivoque <a href="#registro" id="btnregistro">Editar grupo</a></span>
+		      						</div>
+
+	    						</div>
+	  						</div>
+						</div>
+					</div>
+					<!-----modal eliminar-->
+					<div class="col-sm-3">
+						<a href="#" data-toggle="modal" data-target="#exampleModal1" class="btn btn_red btn-lg" id="Eliminar">Eliminar grupo</a>
+						<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+	  						<div class="modal-dialog" role="document">
+	    						<div class="modal-content">
+	      						<div class="modal-header">
+	        						<h5 class="modal-title" id="exampleModalLabel1">Eliminar Grupo</h5>
+	        						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          						<span aria-hidden="true">&times;</span>
+	        						</button>
+	      						</div>
+
+	      						<div class="modal-body">
+								<!--datos de modal para eliminar grups----->
+	        						<form>
+				  						<div class="form-group">
+				  							<label for="exampleModalLabel">Grupo:</label>
+				  							<select name="grupo_eliminar" class="form-control" id="grupo_lista" required>
+				  								<option value="">Selecciona el grupo a eliminar</option>
+				  							</select>			    						
+				  						</div>
+				  						<input type="text" name="accion" value="eliminarGrupo" hidden>
+			  							<button type="submit" class="btn btn-primary">Eliminar</button>
+									</form>
+
+	     						</div>
+
+	    						</div>
+	  						</div>
+						</div>
+					</div>
+					<!---subir archivo---->
+					<div class="col-sm-3">
+						<a href="subir.html" class="btn btn_red btn-lg" id="Subir">Subir archivo</a>
+					</div>
+					<!----modal eliminar archivo--->
+					<div class="col-sm-3">
+						<a href="#" data-toggle="modal" data-target="#exampleModa12" class="btn btn_red btn-lg" id="Eliminar1">Eliminar archivo</a>
+						<div class="modal fade" id="exampleModa12" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+	  						<div class="modal-dialog" role="document">
+	    						<div class="modal-content">
+		      						<div class="modal-header">
+		        						<h5 class="modal-title" id="exampleModalLabel2">Eliminar archivo</h5>
+		        						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          						<span aria-hidden="true">&times;</span>
+		        						</button>
+		      						</div>
+
+		      						<div class="modal-body">
+										<!---datos modal para eliminar archivo---->
+		        						<form>
+				  						<div class="form-group">
+				  							<label for="exampleModalLabel">Archivo:</label>
+				  							<select name="nombre_archivo_eliminar" id="archivos_lista" required class="form-control">
+				  								<option value="">Selecciona el archivo a borrar</option>
+				  							</select>			    						
+				  						</div>
+				  						<input type="text" name="accion" value="eliminarArchivo" hidden>
+				  						<button type="submit" class="btn btn_red">Borrar</button>
+										</form>
+
+		     						</div>
+		      						<div class="modal-footer">
+		        						<span>Me equivoque <a href="#registro" id="btnregistro">Deshacer</a></span>
+		      						</div>
+
+	    						</div>
+	  						</div>
+						</div>
+
+					</div>
+
+					<div class="col-sm-3">
+						<a href="archivos.html" class="btn btn_red btn-lg" id="Eliminar"> Ver archivos</a>												
+					</div>
+
+					<!--Crear tarea
+					<div class="col-sm-3">
+						<a href="creartarea.html " class="btn btn_red btn-lg" id="Subir">Crear tarea</a>
+					</div>-->
+					
+				</div>	
+
+
+				<div class="position-absolute" style="bottom: 20px;">
+					<div class="col-12 mt-5 ">
+						<a href="#profesor" class="no_link" >Bajar</a><br>
+					</div>
+					<div class="col-12">
+						<a href="#check1" class="no_link"><i class="fas fa-chevron-down"></i></a>
+					</div>
+				</div>
+			</div>		  
+
+			<!--------------------seccion de grupos--------------------------------------------------------------------------------------------->
+
+			<div class="jumbotron jumbotron-fluid w-100">
+
+				<div class="container">
+					<div class="titulo">
+						<h1 class="display-3">
+							<span style="color:#1169a3; font-family: 'Rajdhani', sans-serif; font-size: 1.5em;">Grupos</span>
+						</h1>
+						<br>
+						<br>
+					</div>
+				</div>
+				<!-----muestra los grupos-->
+
+				<div class="container"  style="max-height: 500px; overflow-y: auto; background-color: #FFF">
+					
+					<div class="row" id="grupos_creados">
+						
+					</div>
+					
+				</div>
+
+			</div>
+			<!-----seccion de archivos-->
+
+			<div class="jumbotron jumbotron-fluid w-100">
+
+				<div class="container">
+					<div class="titulo">
+						<h1 class="display-3">
+							<span style="color:#1169a3; font-family: 'Rajdhani', sans-serif; font-size: 1.5em;">Archivos</span>
+						</h1>
+						<br>
+						<br>
+					</div>
+				</div>
+				<!-----muestra los archivos-->
+				<div class="container"  style="max-height: 500px; overflow-y: auto; background-color: #FFF">
+					
+					<div class="row" id="archivos_creados">
+						
+					</div>
+
+				</div>
+				
+			</div>
+			
+
+
+
+						
+		
+		</div>		 
+	</section>
+
+	
+				
+	<!----pie de pagina-->
+	<section class="pie">
+		<footer>
+			<div>
+				<p>
+				<a href="https://twitter.com/escomunidad?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3Aescomunidad&ref_url=http%3A%2F%2Fwww.isc.escom.ipn.mx%2F"><i class="fab fa-twitter-square" style="color: white; font-size: 40px; padding: 5px;"></i></a>	
+				<a href="https://www.facebook.com/escomipnmx/"><i class="fab fa-facebook-square" style="color: white; font-size: 40px; padding: 5px;"></i></a>
+				
+				
+				ESCOMpartir ©2018 |</p>	
+			</div>					
+		</footer>			
+	</section>		
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  	<div class="modal-dialog modal-dialog-centered" role="document">
+	    	<div class="modal-content">
+	     		<div class="modal-header">
+	        		<h5 class="modal-title" id="exampleModalLongTitle">Mensaje</h5>
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          			<span aria-hidden="true">&times;</span>
+	        		</button>
+	      		</div>
+		      	<div class="modal-body" id="mensaje-resp-ajax">
+		      	</div>
+	      		<div class="modal-footer">
+      			</div>
+	    	</div>
+	  	</div>
+	</div>
+<!----libreria javascrip--->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<!--<script src="http://localhost:81/bootstrap-4.1.1/js/bootstrap.min.js"></script>-->
+	<script src="assets/js/profesor.js"></script>
+
+
+</body>
+</html>
